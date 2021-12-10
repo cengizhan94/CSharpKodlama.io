@@ -8,7 +8,7 @@ namespace ClassMetotDemo
     {
         public void Add(Customer customer)
         {
-            Console.WriteLine("Müşteri Eklendi : " + customer.FirstName);
+            Console.WriteLine("Müşteri Eklendi : " + customer.FirstName);  
         }
 
         public void Update(Customer customer)
