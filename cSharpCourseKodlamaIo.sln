@@ -39,7 +39,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Homework2Constructor", "Hom
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeWork3Generics", "HomeWork3Generics\HomeWork3Generics.csproj", "{51A0A3D4-547E-4126-B301-0B6F904960F9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeWork4Dictionarys", "HomeWork4Dictionarys\HomeWork4Dictionarys.csproj", "{522751ED-A6C1-41FA-A057-0C81014B946E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeWork5Dictionarys", "HomeWork4Dictionarys\HomeWork5Dictionarys.csproj", "{522751ED-A6C1-41FA-A057-0C81014B946E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
