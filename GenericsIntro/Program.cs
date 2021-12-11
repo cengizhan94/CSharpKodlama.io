@@ -10,6 +10,7 @@ namespace GenericsIntro
             
             MyList<string> isimler = new MyList<string>();
             isimler.Add("Cengiz");
+            Console.WriteLine(isimler);
 
 
         }
