@@ -15,7 +15,7 @@ namespace HomeWork4Dictionarys
 
             myDictionary.Add(1, "bilgisayar");
             myDictionary.Add(2, "Laptop");
-            Console.WriteLine(myDictionary[1]);
+            
         }
     }
 }
