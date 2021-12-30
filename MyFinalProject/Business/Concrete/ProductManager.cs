@@ -20,5 +20,18 @@ namespace Business.Concrete
         {
             return _productDal.GetAll();
         }
+
+        public List<Product> GetAllByCategoryId(int id)
+        {
+            //Her p için p'nin kategori id'si gönderilen id'ye eşitse onları filtrele.
+            return _productDal.GetAll(p => p.CategoryId == id);
+        }
+
+        public List<Product> GetByUnitPrice(decimal min, decimal max)
+        {
+            //Bu kod bize iki fiyat arasında olan ürünleri filtrelemeye yardım ediyor.
+           
+            return _productDal.GetAll(p => p.UnitPrice >= min && p.UnitPrice <= max);
+        }
     }
 }

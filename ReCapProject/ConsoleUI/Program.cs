@@ -10,9 +10,9 @@ namespace ConsoleUI
         {
             CarManager manager = new CarManager(new InMemoryDal());
 
-            foreach (var car in manager.GetAll())
+            foreach (var car in manager.GetCarsByColorId(1))
             {
-                Console.WriteLine(car.Description);
+                Console.WriteLine(car.ColorId);
             }
         }
     }

@@ -5,7 +5,8 @@ using Entities.Concrete;
 
 namespace DataAccess.Abstract
 {
-    public interface ICarDal : IEntityRepository<Car>
+    // Category için yapılandırmış oluyoruz.
+    public interface ICategoryDal : IEntityRepository<Category>
     {
        
     }
