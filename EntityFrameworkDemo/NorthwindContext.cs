@@ -12,7 +12,7 @@ namespace EntityFrameworkDemo
         {
             //@ işareti, ters slash(\) işaretinin tek başına anlamı olduğundan dolayı kullanıldı.
             //Alttaki kod ile hangi veritabanına bağlanılacağını belirtiyoruz.
-            optionsBuilder.UseSqlServer(@"Server = (localdb)\ProjectsV13;datebase=Northwind;Trusted_Connection=true");
+            optionsBuilder.UseSqlServer(@"Server = (localdb)\projectsv13;Database=Northwind;Trusted_Connection=true");
         }
         public DbSet<Product> Products { get; set; }
     }

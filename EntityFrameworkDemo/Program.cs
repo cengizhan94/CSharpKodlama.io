@@ -14,7 +14,7 @@ namespace EntityFrameworkDemo
         private static void GetAll()
         {
             NorthwindContext northwindContext = new NorthwindContext();
-            foreach (var product in northwindContext.Products)//Hatanın neden muhtemelen database bağlanamadığı için.
+            foreach (var product in northwindContext.Products)
             {
                 Console.WriteLine(product.ProductName);
             }
