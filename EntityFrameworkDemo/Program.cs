@@ -8,7 +8,8 @@ namespace EntityFrameworkDemo
         static void Main(string[] args)
         {
             // GetAll();
-            GetProductsByCategory(1);
+            //GetProductsByCategory(1);
+            //ORM nesne ile veritabanını ilişkilendirme.
         }
 
         private static void GetAll()

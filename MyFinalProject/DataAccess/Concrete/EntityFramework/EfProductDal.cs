@@ -13,7 +13,7 @@ namespace DataAccess.Concrete.EntityFramework
     {
         public void Add(Product entity)
         {
-            //Bu operasyonu yazdığımızda çöp toplayıcısına kullanılmayan referansı veriyoruz.
+            //Bu operasyonu yazdığımızda çöp toplayıcısını beklemeden işi biten operasyonu atıyoruz.
             //Burada daha performanslı bir sistem geliştirmiş oluyoruz.
             //IDisposable pattern implementation of c# (Araştırma konusu)
             using (NorthwindContext context = new NorthwindContext())

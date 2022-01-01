@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using DataAccess.Abstract;
+using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
 
 namespace DataAccess.Concrete
@@ -34,9 +36,24 @@ namespace DataAccess.Concrete
             _cars.Remove(carToDelete);
         }
 
-        public List<Car> GetAll()
+        public Car Get(Expression<Func<Car, bool>> filter)
         {
-            return _cars;
+            using (RecapContext context = new RecapContext())
+            {
+                return context.Set<Car>().SingleOrDefault(filter);
+            }
+        }
+
+        
+
+        public List<Car> GetAll(Expression<Func<Car, bool>> filter = null)
+        {
+            using (RecapContext context = new RecapContext())
+            {
+                return filter == null
+                    ? context.Set<Car>().ToList()
+                    : context.Set<Car>().Where(filter).ToList();
+            }
         }
 
         public List<Car> GetAllByCategoryId(int brandId)

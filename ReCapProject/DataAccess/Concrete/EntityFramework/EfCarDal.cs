@@ -40,6 +40,8 @@ namespace DataAccess.Concrete.EntityFramework
 
         public List<Car> GetAll(Expression<Func<Car, bool>> filter = null)
         {
+            //Dispose
+            //Garbahe Collector'u bekleme, using'in  icini kullandiktan sonra at.
             using (RecapContext context = new RecapContext())
             {
                 return filter == null 

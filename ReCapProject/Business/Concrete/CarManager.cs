@@ -18,8 +18,8 @@ namespace Business.Concrete
 
         public void Add(Car car)
         {
-            //Eğer eklenecek aracın ismi 2 karakterse veya büyükse,
-            //Eğer karakterin günlük fiyatı sıfırdan büyükse
+            //Eğer eklenecek aracın ismi 2 karakterse veya 2 karakterden büyükse,
+            //Eğer karakterin günlük fiyatı sıfırdan büyükse,
             //Ekleme işlemini gerçekleştir.
             if (car.Description.Length <= 2 && car.DailyPrice > 0)
             {
@@ -29,7 +29,7 @@ namespace Business.Concrete
             //Koşullar sağlanmadıysa geçerli ve kurala uygun bilginin girilmesini iste.
             else
             {
-                Console.WriteLine("Please enter valid information");
+                Console.WriteLine("Please enter valid vehicle information");
             }
         }
 
