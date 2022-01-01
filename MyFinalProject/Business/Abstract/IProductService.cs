@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Entities.Concrete;
+using Entities.DTOs;
 
 namespace Business.Abstract
 {
@@ -14,5 +15,7 @@ namespace Business.Abstract
         List<Product> GetAllByCategoryId(int id);
         //Fiyatı min x ve max y aralıkları arasında olan ürünler getir.
         List<Product> GetByUnitPrice(decimal min, decimal max);
+
+        List<ProductDetailDto> GetProductDetails();
     }
 }
