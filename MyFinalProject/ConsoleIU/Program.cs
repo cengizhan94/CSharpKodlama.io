@@ -28,6 +28,8 @@ namespace CosoleIU
         private static void ProductTest()
         {
             ProductManager productManager = new ProductManager(new EfProductDal());
+                   
+           
 
             foreach (var product in productManager.GetProductDetails())//GetAll veya GetByUnitPrice kullanarak bu filtrelemeyi değiştirebilirim.
             {                                                        

@@ -2,6 +2,7 @@
 using Business.Concrete;
 using DataAccess.Concrete;
 using DataAccess.Concrete.EntityFramework;
+using Entities.Concrete;
 
 namespace ConsoleUI
 {
@@ -13,7 +14,7 @@ namespace ConsoleUI
             ColorManager   colorManager = new ColorManager(new EfColorDal());
             BrandManager brandManager = new BrandManager(new EfBrandDal());
 
-            foreach (var car in carManager.GetCarsByColorId(1))
+            foreach (var car in carManager.GetAll())
             {
                 Console.WriteLine(car.Description);
             }
