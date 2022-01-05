@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using Business.Abstract;
+using Business.Constants;
+using Core.Utilities.Results.Abstract;
+using Core.Utilities.Results.Concrete;
 using DataAccess.Abstract;
 using Entities.Concrete;
 
@@ -16,51 +19,76 @@ namespace Business.Concrete
             _carDal = carDal;
         }
 
-        public void Add(Car car)
+        public IResult Add(Car car)
         {
             //Eğer eklenecek aracın ismi 2 karakterse veya 2 karakterden büyükse,
             //Eğer karakterin günlük fiyatı sıfırdan büyükse,
             //Ekleme işlemini gerçekleştir.
-            if (car.Description.Length <= 2 && car.DailyPrice > 0)
+            if (car.CarName.Length <= 2 && car.DailyPrice > 0)
             {
                 _carDal.Add(car);
-                Console.WriteLine("The car is added : " + car.Description);
+            }
+            else if(car.CarName.Length < 2)
+            {
+                return new ErrorResult(Messages.InvalidMessage);
             }
             //Koşullar sağlanmadıysa geçerli ve kurala uygun bilginin girilmesini iste.
-            else
-            {
-                Console.WriteLine("Please enter valid vehicle information");
-            }
+            
+
+            return new Result(true,Messages.AddedMessage);
         }
 
-        public void Delete(Car car)
+        public IResult Delete(Car car)
         {
             _carDal.Delete(car);
+            if (false)
+            {
+               return new ErrorResult(Messages.InvalidMessage);
+            }
+            return new Result(true, Messages.DeletedMessage);
+
         }
 
-        public List<Car> GetAll()
+        public IDataResult<List<Car>> GetAll()
         {
-            return _carDal.GetAll();
+            if (DateTime.Now.Hour==11)
+            {
+                return new ErrorDataResult<List<Car>>(Messages.MaintenanceTime);
+            }
+            //DataResult bize burada yapılan işleme göre olumlu veya olumsuz mesajın dönmesini,
+            //Mesaj ile birlikte data'nın da dönmesini sağlayacak.
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(), Messages.SuccessMessage);
         }
 
-        public List<Car> GetCarsByBrandId(int id)
+        public IDataResult<Car> GetById(int carId)
+        {
+           return new SuccessDataResult<Car>(_carDal.Get(p=> p.CarId == carId),Messages.SuccessMessage);
+        }
+
+        public IDataResult<List<Car>> GetCarsByBrandId(int id)
         {
             //Her c için BrandId gönderilen id ile eşitse filtreleme gerçekleştir.
             //Yani marka id'sine göre araçları filtrele.
-            return _carDal.GetAll(c => c.BrandId == id);
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.BrandId == id),Messages.SuccessMessage);
         }
 
-        public List<Car> GetCarsByColorId(int id)
+        public IDataResult<List<Car>> GetCarsByColorId(int id)
         {
             //Her c için ColorId gönderilen id ile eşitse filtreleme gerçekleştir.
             //Yani Renk id'sine göre araçları filtrele.
-            return _carDal.GetAll(c => c.ColorId == id);
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.ColorId == id), Messages.SuccessMessage);
 
         }
 
-        public void Update(Car car)
+        public IResult Update(Car car)
         {
             _carDal.Update(car);
+            if (false)
+            {
+                return new ErrorResult(Messages.InvalidMessage);
+            }
+            return new Result(true, Messages.UpdatedMessage);
+
         }
     }
 }
