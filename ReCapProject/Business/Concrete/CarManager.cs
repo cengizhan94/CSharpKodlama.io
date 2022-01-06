@@ -27,26 +27,19 @@ namespace Business.Concrete
             if (car.CarName.Length <= 2 && car.DailyPrice > 0)
             {
                 _carDal.Add(car);
+                
             }
             else if(car.CarName.Length < 2)
             {
                 return new ErrorResult(Messages.InvalidMessage);
             }
-            //Koşullar sağlanmadıysa geçerli ve kurala uygun bilginin girilmesini iste.
-            
-
-            return new Result(true,Messages.AddedMessage);
+            return new Result(true, Messages.AddedMessage);
         }
 
         public IResult Delete(Car car)
         {
             _carDal.Delete(car);
-            if (false)
-            {
-               return new ErrorResult(Messages.InvalidMessage);
-            }
             return new Result(true, Messages.DeletedMessage);
-
         }
 
         public IDataResult<List<Car>> GetAll()
@@ -83,12 +76,7 @@ namespace Business.Concrete
         public IResult Update(Car car)
         {
             _carDal.Update(car);
-            if (false)
-            {
-                return new ErrorResult(Messages.InvalidMessage);
-            }
             return new Result(true, Messages.UpdatedMessage);
-
         }
     }
 }

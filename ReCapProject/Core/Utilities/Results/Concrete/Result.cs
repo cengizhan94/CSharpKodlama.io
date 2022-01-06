@@ -14,11 +14,8 @@ namespace Core.Utilities.Results.Concrete
         public Result(bool success)
         {
             Success = success;
-           
         }
-
         public bool Success { get; } 
-
         public string Message { get; } 
     }
 }

@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using Business.Abstract;
+using Business.Constants;
+using Core.Utilities.Results.Abstract;
+using Core.Utilities.Results.Concrete;
 using DataAccess.Abstract;
 using Entities.Concrete;
 
@@ -16,24 +19,60 @@ namespace Business.Concrete
             _brandDal = brandDal;
         }
 
-        public void Add(Brand brand)
+        public IResult Add(Brand brand)
         {
-            _brandDal.Add(brand);
+            if (brand.BrandName == null)
+            {
+                return new ErrorResult(Messages.InvalidMessage);
+            }
+            else
+            {
+                _brandDal.Add(brand);
+                return new SuccessResult(Messages.AddedMessage);
+            }
         }
 
-        public void Delete(Brand brand)
+        public IResult Delete(Brand brand)
         {
-            _brandDal.Delete(brand);
+            //Burayı daha da profesyonel hale getirebilirim, araştıracağım.
+            if (true)
+            {
+                _brandDal.Delete(brand);
+                return new Result(true, Messages.DeletedMessage);
+            }
+            else
+            {
+                return new ErrorResult(Messages.InvalidMessage);
+                
+            }
         }
 
-        public List<Brand> GetAll()
+        public IDataResult<List<Brand>> GetAll()
         {
-           return _brandDal.GetAll();
+            if (DateTime.Now.Hour == 11)
+            {
+                return new ErrorDataResult<List<Brand>>(Messages.MaintenanceTime);
+            }
+            return new SuccessDataResult<List<Brand>>(_brandDal.GetAll(), Messages.SuccessMessage);
         }
 
-        public void Update(Brand brand)
+        public IDataResult<Brand> GetById(int brandId)
         {
-            _brandDal.Update(brand);
+            return new SuccessDataResult<Brand>(_brandDal.Get(b => b.BrandId == brandId),Messages.SuccessMessage);
+        }
+
+        public IResult Update(Brand brand)
+        {
+            if (true)
+            {
+                _brandDal.Update(brand);
+                return new Result(true, Messages.UpdatedMessage);
+            }
+            else
+            {
+               return new ErrorResult(Messages.InvalidMessage);  
+            }
+            
         }
     }
 }

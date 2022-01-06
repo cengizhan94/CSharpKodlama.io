@@ -17,12 +17,12 @@ namespace DataAccess.Concrete
         {
             _cars = new List<Car> { 
                 
-                new Car{Id=1,BrandId=1,ColorId=1,DailyPrice=15000,Description="BMW",ModelYear=new DateTime(2020,1,1)},
-                new Car{Id=2,BrandId=2,ColorId=1,DailyPrice=14000,Description="Mercedes",ModelYear=new DateTime(2019,1,1)},
-                new Car{Id=3,BrandId=3,ColorId=2,DailyPrice=13000,Description="Ford",ModelYear=new DateTime(2018,1,1)},
-                new Car{Id=4,BrandId=4,ColorId=2,DailyPrice=12000,Description="MAN",ModelYear=new DateTime(2017,1,1)},
+            //    new Car{CarId=1,BrandId=1,ColorId=1,DailyPrice=15000,Description="BMW",ModelYear=new DateTime(2020,1,1)},
+            //    new Car{CarId=2,BrandId=2,ColorId=1,DailyPrice=14000,Description="Mercedes",ModelYear=new DateTime(2019,1,1)},
+            //    new Car{CarId=3,BrandId=3,ColorId=2,DailyPrice=13000,Description="Ford",ModelYear=new DateTime(2018,1,1)},
+            //    new Car{CarId=4,BrandId=4,ColorId=2,DailyPrice=12000,Description="MAN",ModelYear=new DateTime(2017,1,1)},
 
-                };
+              };
         }
 
         public void Add(Car car)
@@ -32,7 +32,7 @@ namespace DataAccess.Concrete
 
         public void Delete(Car car)
         {
-            Car carToDelete = _cars.SingleOrDefault(p => p.Id == car.Id);
+            Car carToDelete = _cars.SingleOrDefault(p => p.CarId == car.CarId);
             _cars.Remove(carToDelete);
         }
 
@@ -63,7 +63,7 @@ namespace DataAccess.Concrete
 
         public void Update(Car car)
         {
-            Car carToUpdate = _cars.SingleOrDefault(p => p.Id == car.Id);
+            Car carToUpdate = _cars.SingleOrDefault(p => p.CarId == car.CarId);
             carToUpdate.BrandId = car.BrandId;
             carToUpdate.ColorId = car.ColorId;
             carToUpdate.DailyPrice = car.DailyPrice;

@@ -7,6 +7,8 @@ namespace Core.Utilities.Results.Concrete
 {
     public class SuccessDataResult<T> :DataResult<T>
     {
+        
+        public string SuccessMessage { get; }
 
         //Burada başarılı olan DataResult'u kullanacak olan kullanıcıya döndürmesi için çeşitli contructorlar sunuyoruz.
         public SuccessDataResult(T data, string message) : base(data,true,message)
@@ -25,5 +27,7 @@ namespace Core.Utilities.Results.Concrete
         {
             //Hiçbir şey döndürmez. default truedur.
         }
+
+      
     }
 }
