@@ -34,17 +34,8 @@ namespace Business.Concrete
 
         public IResult Delete(Brand brand)
         {
-            //Burayı daha da profesyonel hale getirebilirim, araştıracağım.
-            if (true)
-            {
                 _brandDal.Delete(brand);
                 return new Result(true, Messages.DeletedMessage);
-            }
-            else
-            {
-                return new ErrorResult(Messages.InvalidMessage);
-                
-            }
         }
 
         public IDataResult<List<Brand>> GetAll()
@@ -63,16 +54,8 @@ namespace Business.Concrete
 
         public IResult Update(Brand brand)
         {
-            if (true)
-            {
                 _brandDal.Update(brand);
                 return new Result(true, Messages.UpdatedMessage);
-            }
-            else
-            {
-               return new ErrorResult(Messages.InvalidMessage);  
-            }
-            
-        }
+       }
     }
 }

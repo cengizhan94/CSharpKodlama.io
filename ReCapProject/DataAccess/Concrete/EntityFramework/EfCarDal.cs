@@ -10,8 +10,5 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.Concrete.EntityFramework
 {
-    public class EfCarDal : EfEntityRepositoryBase<Car,RecapContext>,ICarDal
-    {
-        
-    }
+    public class EfCarDal : EfEntityRepositoryBase<Car,RecapContext>,ICarDal {}
 }

@@ -6,8 +6,6 @@ namespace Core.Utilities.Results.Concrete
 {
     public class ErrorDataResult<T> : DataResult<T>
     {
-
-        //Burada başarılı olan DataResult'u kullanacak olan kullanıcıya döndürmesi için çeşitli contructorlar sunuyoruz.
         public ErrorDataResult(T data, string message) : base(data, false, message)
         {
             //Hem datayı hem mesajı hem de true yada false olan sonucu döndürür
@@ -24,6 +22,5 @@ namespace Core.Utilities.Results.Concrete
         {
 
         }
-
     }
 }

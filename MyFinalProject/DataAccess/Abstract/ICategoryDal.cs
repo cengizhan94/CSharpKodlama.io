@@ -6,7 +6,6 @@ using Entities.Concrete;
 
 namespace DataAccess.Abstract
 {                                                                                          
-    // Category için yapılandırmış oluyoruz.
     public interface ICategoryDal : IEntityRepository<Category>
     {
        

@@ -17,8 +17,6 @@ namespace DataAccess.Concrete.EntityFramework
         {
             using (NorthwindContext context = new NorthwindContext())
             {
-                //Burada Tabloları ilişkilendiriyoruz yani join yapıyoruz.
-                //Ürünleri kategorileri ile birlikte göster demek istiyoruz.
                 var result = from p in context.Products
                              join c in context.Categories
                              on p.CategoryId equals c.CategoryId

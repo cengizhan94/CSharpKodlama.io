@@ -8,7 +8,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Core.DataAccess.EntityFramework
 {
-    //Burada kurallarımızı yazıyoruz. TEntity ve TContext için geçerli olan kurallarım:
    public class EfEntityRepositoryBase <TEntity,TContext> : IEntityRepository<TEntity>
         where TEntity : class, IEntity, new()
        where TContext : DbContext , new()
@@ -16,14 +15,11 @@ namespace Core.DataAccess.EntityFramework
         public void Add(TEntity entity)
         {
             //Bu operasyonu yazdığımızda çöp toplayıcısını beklemeden işi biten operasyonu atıyoruz.
-            //Burada daha performanslı bir sistem geliştirmiş oluyoruz.
-            //IDisposable pattern implementation of c# (Araştırma konusu)
             using (TContext context = new TContext())
-            {
-                //Bu kod ile Veri kaynağından gönderilen producta bir nesneyi eşleştir... Eşleşme olmayacağından dirket eklenecektir. Bu bir Add metodudur.
-                var addedEntity = context.Entry(entity);//Referansı yakaladık
-                addedEntity.State = EntityState.Added;//Yakaladığın referans eklenecek nesnedir.
-                context.SaveChanges();//İşlemi gerçekleştir.
+            { 
+                var addedEntity = context.Entry(entity);    //Referansı yakaladık
+                addedEntity.State = EntityState.Added;    //Yakaladığın referans eklenecek nesnedir.
+                context.SaveChanges();                          //İşlemi gerçekleştir.
             }
         }
 
@@ -50,7 +46,6 @@ namespace Core.DataAccess.EntityFramework
             using (TContext context = new TContext())
             {
                 //Ternary Operator
-                //Filtre eğer boş ise verilen filtreyi listele.
                 return filter == null
                     ? context.Set<TEntity>().ToList()
                     : context.Set<TEntity>().Where(filter).ToList();

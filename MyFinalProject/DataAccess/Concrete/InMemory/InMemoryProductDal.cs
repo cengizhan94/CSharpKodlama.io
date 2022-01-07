@@ -33,7 +33,7 @@ namespace DataAccess.Concrete.InMemory
         {
             //LINQ - Languege Integrated Querry
             // Lampda ifadesi (=>)
-            Product productToDelete  = _products.SingleOrDefault(p=>p.ProductId == product.ProductId);   //Her p için p'nin product Id'si gönderilen product Id'ye eşit mi?
+            Product productToDelete  = _products.SingleOrDefault(p=>p.ProductId == product.ProductId);
            
 
             _products.Remove(productToDelete);

@@ -4,7 +4,6 @@ using System.Text;
 
 namespace Business.Constants
 {
-    //Standart mesajlar klassımı oluşturdum static yaptım ki sürekli newlemek zorunda kalmayım.
     public static class Messages
     {
         public static string ProductAdded = "Ürün eklendi";

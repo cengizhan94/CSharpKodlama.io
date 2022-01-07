@@ -21,9 +21,6 @@ namespace Business.Concrete
 
         public IResult Add(Car car)
         {
-            //Eğer eklenecek aracın ismi 2 karakterse veya 2 karakterden büyükse,
-            //Eğer karakterin günlük fiyatı sıfırdan büyükse,
-            //Ekleme işlemini gerçekleştir.
             if (car.CarName.Length <= 2 && car.DailyPrice > 0)
             {
                 _carDal.Add(car);
@@ -48,8 +45,6 @@ namespace Business.Concrete
             {
                 return new ErrorDataResult<List<Car>>(Messages.MaintenanceTime);
             }
-            //DataResult bize burada yapılan işleme göre olumlu veya olumsuz mesajın dönmesini,
-            //Mesaj ile birlikte data'nın da dönmesini sağlayacak.
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(), Messages.SuccessMessage);
         }
 
@@ -60,17 +55,12 @@ namespace Business.Concrete
 
         public IDataResult<List<Car>> GetCarsByBrandId(int id)
         {
-            //Her c için BrandId gönderilen id ile eşitse filtreleme gerçekleştir.
-            //Yani marka id'sine göre araçları filtrele.
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.BrandId == id),Messages.SuccessMessage);
         }
 
         public IDataResult<List<Car>> GetCarsByColorId(int id)
         {
-            //Her c için ColorId gönderilen id ile eşitse filtreleme gerçekleştir.
-            //Yani Renk id'sine göre araçları filtrele.
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.ColorId == id), Messages.SuccessMessage);
-
         }
 
         public IResult Update(Car car)

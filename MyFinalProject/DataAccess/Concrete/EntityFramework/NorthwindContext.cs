@@ -13,7 +13,6 @@ namespace DataAccess.Concrete.EntityFramework
         {
             //Ters slash(\) işaretinin tek başına bir anlam9ı olduğundan dolayı (@) işareti kullanıyoruz.
             optionsBuilder.UseSqlServer(@"server=(localdb)\mssqllocaldb;Database=Northwind;Trusted_Connection=true");
-            //Burada nereye bağlanacağımızı giriyoruz. localdb bilgisayarımdaki sql serverin adı.
         }
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }

@@ -7,11 +7,11 @@ namespace CosoleIU
 {
     //SOLID prensibinin Open Closed Principle
     //Eğer sisteme yeni bir özellik ekleniyorsa mevcut olan hiçbir koda dokunulamaz.
+    //Data Transformation Object
     class Program
     {
         static void Main(string[] args)
         {
-            //Data Transformation Object
             ProductTest();
             //CategoryTest();
         }
@@ -33,7 +33,7 @@ namespace CosoleIU
             var result = productManager.GetProductDetails();
             if (result.Success == true)
             {
-                foreach (var product in result.Data)//GetAll veya GetByUnitPrice kullanarak bu filtrelemeyi değiştirebilirim.
+                foreach (var product in result.Data)
                 {                                                        
                 Console.WriteLine(product.ProductName+"/"+product.CategoryName);
                 }

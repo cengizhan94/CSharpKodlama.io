@@ -4,10 +4,9 @@ using System.Text;
 
 namespace Core.Utilities.Results.Abstract
 {
+    //Data her şey olabilir.
     public interface IDataResult<T> : IResult 
     {
-        //işlem sonucu dışında bir de T türünde bir data döndürülecek.
-        //Data ise ürün,araç vs....   T'ye kısıtlama yapmıyoruz. Çünkü istenilen her şey olabilr.
           T Data { get; }
     }
 }

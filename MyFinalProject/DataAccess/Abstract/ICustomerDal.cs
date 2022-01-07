@@ -6,7 +6,7 @@ using Entities.Concrete;
 
 namespace DataAccess.Abstract
 {
-    public interface ICustomerDal:IEntityRepository<Customer>//Buraya IEntity gibi newlenemeyen bir nesne yazılmaması için kurallar yazılmıştır. Yalnızca projedeki nesneler buraya yazılabilir.
+    public interface ICustomerDal:IEntityRepository<Customer>
     {
 
     }
