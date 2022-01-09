@@ -6,6 +6,7 @@ using System.Text;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
+using Entities.DTOs;
 
 namespace DataAccess.Concrete
 {
@@ -59,6 +60,11 @@ namespace DataAccess.Concrete
         public List<Car> GetAllByCategoryId(int brandId)
         {
             return _cars.Where(p => p.BrandId == brandId).ToList();
+        }
+
+        public List<CarDetailDto> GetCarDetails()
+        {
+            throw new NotImplementedException();
         }
 
         public void Update(Car car)

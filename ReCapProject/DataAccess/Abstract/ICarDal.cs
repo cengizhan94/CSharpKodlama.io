@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 using Core.DataAccess.EntityFramework;
-using Entities.Concrete;  //Proje referansı olarak Core'u seçtim. Namespace'i düzelttim. 
+using Entities.Concrete;
+using Entities.DTOs;
 
 namespace DataAccess.Abstract
 {
     public interface ICarDal : IEntityRepository<Car>
     {
-       
+        List<CarDetailDto> GetCarDetails();
     }
 }

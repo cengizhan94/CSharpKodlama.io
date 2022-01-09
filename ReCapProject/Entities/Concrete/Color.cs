@@ -5,7 +5,7 @@ using Core.Entities;
 
 namespace Entities.Concrete
 {
-    public class Colors : IEntity
+    public class Color : IEntity
     {
         public int ID { get; set; }
         public int ColorId { get; set; }
