@@ -7,7 +7,6 @@ namespace Entities.Concrete
 {
     public class User : IEntity
     {
-        public int ID { get; set; }
         public int UserId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }

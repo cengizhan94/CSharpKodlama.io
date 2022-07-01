@@ -12,42 +12,42 @@ namespace Business.Concrete
 {
     public class RentalManager : IRentalService
     {
-        IRentalsDal _rentalsDal;
+        IRentalDal _rentalsDal;
 
-        public RentalManager(IRentalsDal rentalsDal)
+        public RentalManager(IRentalDal rentalsDal)
         {
             _rentalsDal = rentalsDal;
         }
 
-        public IResult Add(Rentals rental)
+        public IResult Add(Rental rental)
         {
             if (rental.ReturnDate.Date != null)
             {
                 _rentalsDal.Add(rental);
-                return new SuccessDataResult<Rentals>(Messages.AvailableMessage);
+                return new SuccessDataResult<Rental>(Messages.AvailableMessage);
             }
             else
             {
-                return new ErrorDataResult<Rentals>(Messages.NotAvailableMessage);
+                return new ErrorDataResult<Rental>(Messages.NotAvailableMessage);
             }
         }
 
-        public IResult Delete(Rentals rental)
+        public IResult Delete(Rental rental)
         {
             _rentalsDal.Delete(rental);
             return new Result(true,Messages.DeletedMessage);
         }
 
-        public IDataResult<List<Rentals>> GetAll()
+        public IDataResult<List<Rental>> GetAll()
         {
-            return new SuccessDataResult<List<Rentals>>(_rentalsDal.GetAll(),Messages.SuccessMessage);
+            return new SuccessDataResult<List<Rental>>(_rentalsDal.GetAll(),Messages.SuccessMessage);
         }
-        public IDataResult<Rentals> GetById(int rentalId)
+        public IDataResult<Rental> GetById(int rentalId)
         {
-            return new SuccessDataResult<Rentals>(_rentalsDal.Get(p => p.ID == rentalId), Messages.SuccessMessage);
+            return new SuccessDataResult<Rental>(_rentalsDal.Get(r=> r.RentalId == rentalId), Messages.SuccessMessage);
         }
 
-        public IResult Update(Rentals rental)
+        public IResult Update(Rental rental)
         {
             _rentalsDal.Update(rental);
             return new Result(true,Messages.UpdatedMessage);
