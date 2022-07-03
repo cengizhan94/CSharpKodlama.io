@@ -9,6 +9,8 @@ using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
 using Entities.Concrete;
 using DataAccess.Abstract;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Vlidation;
 
 namespace Business.Concrete
 {
@@ -21,21 +23,11 @@ namespace Business.Concrete
             _userDal = userDal;
         }
 
+        [ValidationAspect(typeof(UserValidator))]
         public IResult Add(User user)
         {
-            if (user.FirstName.Length<2 && user.LastName.Length<2)
-            {
-                return new ErrorResult(Messages.TextInvalidMessage);
-            }
-            else if (user.Password.Length < 6 && user.Password == null)
-            {
-                return new ErrorResult(Messages.PasswordInvalidMessage);
-            }
-            else
-            {
                 _userDal.Add(user);
-                return new SuccessResult(Messages.AddedMessage);
-            }
+                return new SuccessResult(Messages.AddedMessage); 
         }
 
         public IResult Delete(User user)

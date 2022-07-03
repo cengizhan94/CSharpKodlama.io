@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Vlidation;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
 using DataAccess.Abstract;
@@ -19,17 +21,11 @@ namespace Business.Concrete
             _brandDal = brandDal;
         }
 
+        [ValidationAspect(typeof(BrandValidator))]
         public IResult Add(Brand brand)
         {
-            if (brand.BrandName == null)
-            {
-                return new ErrorResult(Messages.InvalidMessage);
-            }
-            else
-            {
                 _brandDal.Add(brand);
-                return new SuccessResult(Messages.AddedMessage);
-            }
+                return new SuccessResult(Messages.AddedMessage);  
         }
 
         public IResult Delete(Brand brand)

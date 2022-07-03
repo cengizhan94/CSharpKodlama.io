@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Vlidation;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
 using DataAccess.Abstract;
@@ -12,18 +14,19 @@ namespace Business.Concrete
 {
     public class RentalManager : IRentalService
     {
-        IRentalDal _rentalsDal;
+        IRentalDal _rentalDal;
 
-        public RentalManager(IRentalDal rentalsDal)
+        public RentalManager(IRentalDal rentalDal)
         {
-            _rentalsDal = rentalsDal;
+            _rentalDal = rentalDal;
         }
 
+        [ValidationAspect(typeof(RentalValidator))]
         public IResult Add(Rental rental)
         {
             if (rental.ReturnDate.Date != null)
             {
-                _rentalsDal.Add(rental);
+                _rentalDal.Add(rental);
                 return new SuccessDataResult<Rental>(Messages.AvailableMessage);
             }
             else
@@ -34,22 +37,22 @@ namespace Business.Concrete
 
         public IResult Delete(Rental rental)
         {
-            _rentalsDal.Delete(rental);
+            _rentalDal.Delete(rental);
             return new Result(true,Messages.DeletedMessage);
         }
 
         public IDataResult<List<Rental>> GetAll()
         {
-            return new SuccessDataResult<List<Rental>>(_rentalsDal.GetAll(),Messages.SuccessMessage);
+            return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll(),Messages.SuccessMessage);
         }
         public IDataResult<Rental> GetById(int rentalId)
         {
-            return new SuccessDataResult<Rental>(_rentalsDal.Get(r=> r.RentalId == rentalId), Messages.SuccessMessage);
+            return new SuccessDataResult<Rental>(_rentalDal.Get(r=> r.RentalId == rentalId), Messages.SuccessMessage);
         }
 
         public IResult Update(Rental rental)
         {
-            _rentalsDal.Update(rental);
+            _rentalDal.Update(rental);
             return new Result(true,Messages.UpdatedMessage);
         }
     }

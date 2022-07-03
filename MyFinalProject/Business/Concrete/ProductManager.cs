@@ -22,11 +22,12 @@ namespace Business.Concrete
         {
             _productDal = productDal;
         }
+
         [ValidationAspect(typeof (ProductValidator))]
         public IResult Add(Product product)
-        {                                        
-            
-                 _productDal.Add(product);
+        {
+
+                _productDal.Add(product);
                 return new SuccessResult(Messages.ProductAdded);
         }
 
