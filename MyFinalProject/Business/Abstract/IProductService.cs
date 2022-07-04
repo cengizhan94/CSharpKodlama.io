@@ -9,8 +9,6 @@ namespace Business.Abstract
 {
    public interface IProductService
     {
-        //Filtrelemelerim
-        //IDataResult olan metodlar hata mesajı vs,  verebilmek için kullanılan operasyon.
         IDataResult<List<Product>> GetAll();
         IDataResult<Product> GetById(int productId);
         IDataResult<List<Product>> GetAllByCategoryId(int id);
