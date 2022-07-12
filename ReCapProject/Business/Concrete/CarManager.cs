@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Business.Abstract;
+using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Vlidation;
@@ -60,12 +61,12 @@ namespace Business.Concrete
 
         public IDataResult<List<Car>> GetAllByBrandId(int id)
         {
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.BrandId == id),Messages.SuccessMessage);
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.BrandId == id));
         }
 
         public IDataResult<List<Car>> GetAllByColorId(int id)
         {
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.ColorId == id), Messages.SuccessMessage);
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.ColorId == id));
         }
 
         public IResult Update(Car car)
