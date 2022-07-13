@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Core.Utilities.Helpers.GuidHelper;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -6,9 +7,9 @@ using System.Text;
 
 namespace Core.Utilities.FileUploader
 {
-    public class FileHelper : IFileHelper
+    public static class FileHelper
     {
-        public void Delete(string filePath)
+        public static void Delete(string filePath)
         {
             if (File.Exists(filePath))
             {
@@ -16,39 +17,31 @@ namespace Core.Utilities.FileUploader
             }
         }
 
-        public string Upload(IFormFile file, string root)
-        {
-            {
-                if (file.Length > 0)
+        public static string Upload(IFormFile file, string root)
+        { 
+             if (file.Length > 0)
                 {
                     if (!Directory.Exists(root))
                     {
                         Directory.CreateDirectory(root);
                     }
                     string extension = Path.GetExtension(file.FileName);
-                    string guid = Guid.NewGuid().ToString();
-                    string filePath = guid + extension;
-
-                    using (FileStream fileStream = File.Create(root + filePath))
+                    string guid = GuidHelper.CreateGuid().ToString();
+                    string newPath = guid + extension;
+                    using (FileStream fileStream = File.Create(root + newPath))
                     {
                         file.CopyTo(fileStream);
                         fileStream.Flush();
-                        return filePath;
+                        return newPath;
                     }
-
                 }
                 return null;
-            }
         }
 
-        public string Update(IFormFile file, string root, string filePath)
+        public static string Update(IFormFile file, string root, string filePath)
         {
-            if (File.Exists(filePath))
-            {
-                File.Delete(filePath);
-            }
+            File.Delete(filePath);  
             return Upload(file, root);
-
         }
     }
 }

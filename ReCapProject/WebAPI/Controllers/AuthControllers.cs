@@ -10,10 +10,12 @@ namespace WebAPI.Controllers
     public class AuthController : Controller
     {
         private IAuthService _authService;
+        private IUserVerifyService _userVerifyService;
 
-        public AuthController(IAuthService authService)
+        public AuthController(IAuthService authService,IUserVerifyService userVerifyService)
         {
             _authService = authService;
+            _userVerifyService = userVerifyService;
         }
 
         [HttpPost("login")]
@@ -40,17 +42,19 @@ namespace WebAPI.Controllers
             var userExists = _authService.UserExists(userForRegisterDto.Email);
             if (!userExists.Success)
             {
-                return BadRequest(userExists.Message);
+                return BadRequest(userExists);
             }
 
-            var registerResult = _authService.Register(userForRegisterDto, userForRegisterDto.Password);
-            var result = _authService.CreateAccessToken(registerResult.Data);
-            if (result.Success)
+            var registerResult = _authService.Register(userForRegisterDto);
+            
+            if (registerResult.Success)
             {
+                var userVerify = _userVerifyService.Add(userForRegisterDto.Email);
+                var result = _authService.CreateAccessToken(registerResult.Data);
                 return Ok(result.Data);
             }
 
-            return BadRequest(result.Message);
+            return BadRequest(registerResult);
         }
     }
 }

@@ -1,6 +1,9 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Vlidation;
 using Core.Entities.Concrete;
+using Core.Utilities.Business;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
 using Core.Utilities.Security.Hashing;
@@ -23,11 +26,11 @@ namespace Business.Concrete
             _userService = userService;
             _tokenHelper = tokenHelper;
         }
-
-        public IDataResult<User> Register(UserForRegisterDto userForRegisterDto, string password)
+        [ValidationAspect(typeof(UserForRegisterDtoValidator))]
+        public IDataResult<User> Register(UserForRegisterDto userForRegisterDto)
         {
             byte[] passwordHash, passwordSalt;
-            HashingHelper.CreatePasswordHash(password, out passwordHash, out passwordSalt);
+            HashingHelper.CreatePasswordHash(userForRegisterDto.Password, out passwordHash, out passwordSalt);
             var user = new User
             {
                 Email = userForRegisterDto.Email,
@@ -40,7 +43,7 @@ namespace Business.Concrete
             _userService.Add(user);
             return new SuccessDataResult<User>(user, Messages.UserRegistered);
         }
-
+        [ValidationAspect(typeof(UserForLoginDtoValidator))]
         public IDataResult<User> Login(UserForLoginDto userForLoginDto)
         {
             var userToCheck = _userService.GetByMail(userForLoginDto.Email);
@@ -49,9 +52,11 @@ namespace Business.Concrete
                 return new ErrorDataResult<User>(Messages.UserNotFound);
             }
 
-            if (!HashingHelper.VerifyPasswordHash(userForLoginDto.Password, userToCheck.PasswordHash, userToCheck.PasswordSalt))
+            var result = BusinessRules.Run(CheckUserStatus(userToCheck),
+                CheckVerifyPassword(userForLoginDto, userToCheck));
+            if (result!=null)
             {
-                return new ErrorDataResult<User>(Messages.PasswordError);
+                return new ErrorDataResult<User>(result.Message);
             }
 
             return new SuccessDataResult<User>(userToCheck, Messages.SuccessfulLogin);
@@ -71,6 +76,24 @@ namespace Business.Concrete
             var claims = _userService.GetClaims(user);
             var accessToken = _tokenHelper.CreateToken(user, claims);
             return new SuccessDataResult<AccessToken>(accessToken, Messages.AccessTokenCreated);
+        }
+
+        // BusinessRules
+        private IResult CheckVerifyPassword(UserForLoginDto userForLoginDto, User user)
+        {
+            if (!HashingHelper.VerifyPasswordHash(userForLoginDto.Password,user.PasswordHash,user.PasswordSalt))
+            {
+                return new ErrorResult(Messages.PasswordError);
+            }
+            return new SuccessResult();
+        }
+        private IResult CheckUserStatus(User userToCheck)
+        {
+            if (userToCheck.Status == false)
+            {
+                return new ErrorResult(Messages.VerifyYourEmailAdress);
+            }
+            return new SuccessResult();
         }
     }
 }

@@ -16,24 +16,19 @@ namespace Business.Concrete
     public class CarImageManager : ICarImageService
     {
         ICarImageDal _carImageDal;
-        IFileHelper _fileService;
-        
-        
-
-        public CarImageManager(ICarImageDal carImageDal,IFileHelper fileService)
+        public CarImageManager(ICarImageDal carImageDal)
         {
             _carImageDal = carImageDal;
-            _fileService = fileService;
         }
 
         public IResult Add(IFormFile file, CarImage carImage)
         {
-            IResult result = BusinessRules.Run(CheckIfCarImageLimit(carImage.CarId));
+            var result = BusinessRules.Run(CheckIfCarImageLimit(carImage.CarId));
             if (result != null)
             {
-                return result;
+                return new ErrorResult(result.Message);
             }
-            carImage.ImagePath = _fileService.Upload(file, PathConstants.ImagesPath);
+            carImage.ImagePath = FileHelper.Upload(file, PathConstants.ImagesPath);
             carImage.Date = DateTime.Now;
             _carImageDal.Add(carImage);
             return new SuccessResult(Messages.SuccessFileUpload);
@@ -41,7 +36,7 @@ namespace Business.Concrete
 
         public IResult Delete(CarImage carImage)
         {
-            _fileService.Delete(PathConstants.ImagesPath + carImage.ImagePath);
+            FileHelper.Delete(PathConstants.ImagesPath + carImage.ImagePath);
             _carImageDal.Delete(carImage);
             return new SuccessResult();
         }
@@ -56,14 +51,14 @@ namespace Business.Concrete
             return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll(c=>c.CarId == carId));
         }
 
-        public IDataResult<List<CarImage>> GetByImageId(int imageId)
+        public IDataResult<CarImage> GetByImageId(int imageId)
         {
-            return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll(c => c.ImageId == imageId));
+            return new SuccessDataResult<CarImage>(_carImageDal.Get(c => c.ImageId == imageId));
         }
 
         public IResult Update(IFormFile file, CarImage carImage)
         {
-            carImage.ImagePath = _fileService.Update(file, PathConstants.ImagesPath + carImage.ImagePath, PathConstants.ImagesPath);
+            FileHelper.Update(file, PathConstants.ImagesPath+carImage.ImagePath,PathConstants.ImagesPath);
             _carImageDal.Update(carImage);
             return new SuccessResult();
         }

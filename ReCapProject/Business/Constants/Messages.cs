@@ -29,5 +29,6 @@ namespace Business.Constants
         public static string SuccessfulLogin    ="Başarılı giriş.";
         public static string AccessTokenCreated ="Kullanıcı tokeni oluşturuldu";
         public static string SendingVerifyMail  ="Doğrulama gaili girilen email adresinize gönderildi.";
+        public static string VerifyYourEmailAdress = "Lütfen email adresinizi doğrulayın.";
     }
 }

@@ -40,12 +40,11 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<EfCarImageDal>().As<ICarImageDal>().SingleInstance();
 
             builder.RegisterType<AuthManager>().As<IAuthService>();
+
             builder.RegisterType<JwtHelper>().As<ITokenHelper>();
 
             builder.RegisterType<UserVerifyManager>().As<IUserVerifyService>();
             builder.RegisterType<EfUserVerifyDal>().As<IUserVerifyDal>();
-
-            builder.RegisterType<FileHelper>().As<IFileHelper>().SingleInstance();
 
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();
 
