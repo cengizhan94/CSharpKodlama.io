@@ -12,12 +12,10 @@ namespace WebAPI.Controllers
     {
         private IUserVerifyService _userVerifyService;
         private IUserService _userService;
-        //private ISmsSender _smtpEmailSender;
-        public UserVeryfiesController(IUserVerifyService userVerifyService, IUserService userService/* ISmsSender smtpEmailSender*/)
+        public UserVeryfiesController(IUserVerifyService userVerifyService, IUserService userService)
         {
             _userVerifyService = userVerifyService;
             _userService = userService;
-            //_smtpEmailSender = smtpEmailSender;
         }
 
         [HttpGet("verify")]
